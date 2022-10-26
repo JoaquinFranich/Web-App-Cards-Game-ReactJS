@@ -12,6 +12,7 @@ const Game = () => {
         <>
             <div className="game-container">
                 <h1>The Game</h1>
+                <Cards cards={cards}></Cards>
             </div>
         </>
 
