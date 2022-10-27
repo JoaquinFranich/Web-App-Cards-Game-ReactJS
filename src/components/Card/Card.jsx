@@ -9,7 +9,8 @@ import "./Card.css";
 const Card = ({Card}) => {
     const { cards, setCards } = useContext(CardContext);    
 
-    const [characters, setCharacters] = useState([]);
+    const {getApi} = useState([]);
+    /* const [characters, setCharacters] = useState([]);
 
     const getApi = `https://rickandmortyapi.com/api/character`;
 
@@ -19,7 +20,15 @@ const Card = ({Card}) => {
 
     useEffect(() => {
         fetchCharacters(getApi);
-    }, [])
+    }, []) */
+
+
+    return (
+        <div className="container">
+            <p>ID: {cards.id}</p>
+            <p>Name</p>
+        </div>
+    )
 
 
 
