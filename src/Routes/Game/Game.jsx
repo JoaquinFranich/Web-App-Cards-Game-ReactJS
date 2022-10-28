@@ -1,5 +1,9 @@
+//DEPS
 import { useContext, useState } from "react";
+//COMPONENTS
 import Cards from "../../components/Card/Cards";
+import Card from "../../components/Card/Card";
+//CONEXT
 import { CardContext } from "../../Context/CardContext";
 import {getApi} from "../../service";
 import "./Game.css";
@@ -12,7 +16,7 @@ const Game = () => {
         <>
             <div className="game-container">
                 <h1>The Game</h1>
-                <Cards cards={cards}></Cards>
+                <Card/>
             </div>
         </>
 

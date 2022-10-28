@@ -24,6 +24,8 @@ const Navbar = () => {
 
     return (
         <>
+        <div className="container">
+            <div className="alert alert-succes">
             <div className="navigation">
                 <Link className="logo-container" to='/'>
                     <h1>Weather 6</h1>
@@ -36,6 +38,9 @@ const Navbar = () => {
                 </div>
             </div>
             <Outlet></Outlet>
+            </div>
+        </div>
+            
         </>
     )
 }
