@@ -1,10 +1,10 @@
 //DEPS
-import { useContext, useState } from "react";
+//import { useContext, useState } from "react";
 //COMPONENTS
 /* import Cards from "../../components/Card/Cards"; */
 import Card from "../../components/Card/Card";
 //CONTEXT
-import { CardContext } from "../../Context/CardContext";
+//import { CardContext } from "../../Context/CardContext";
 //import {getApi} from "../../service";
 import "./Game.css";
 

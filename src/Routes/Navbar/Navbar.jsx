@@ -28,7 +28,7 @@ const Navbar = () => {
             <div className="alert alert-succes">
             <div className="navigation">
                 <Link className="logo-container" to='/'>
-                    <h1>Weather 6</h1>
+                    <h1>Rick & Morty</h1>
                 </Link>
                 <div className="navigation-links">
                     <Link className="home" to='/'>
