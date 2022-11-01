@@ -1,15 +1,15 @@
 //DEPS
 import { useContext, useState } from "react";
 //COMPONENTS
-import Cards from "../../components/Card/Cards";
+/* import Cards from "../../components/Card/Cards"; */
 import Card from "../../components/Card/Card";
-//CONEXT
+//CONTEXT
 import { CardContext } from "../../Context/CardContext";
-import {getApi} from "../../service";
+//import {getApi} from "../../service";
 import "./Game.css";
 
 const Game = () => {
-    const {cards, setCards} = useContext(CardContext);
+    //const {cards, setCards} = useContext(CardContext);
     
 
     return (

@@ -7,11 +7,13 @@ export const CardContext = createContext({
 
 export const CardProvider = ({ children }) => {
   const [cards, setCards] = useState([]);
-  const value = { cards, setCards };
+  const value = { cards };
 
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character`).then(response => response.json()).then(data =>
-      setCards(data.results))
-  }, [])
+    fetch(`https://rickandmortyapi.com/api/character`)
+      .then((response) => response.json())
+      .then((data) => setCards(data.results))
+      .catch((error) => console.log(error));
+  }, []);
   return <CardContext.Provider value={value}>{children}</CardContext.Provider>;
 };

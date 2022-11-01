@@ -26,7 +26,7 @@ const Home = () => {
     return(
         <div className="main-container">
             <h1>Home</h1>
-            <Cards cards={cards}></Cards>
+            {/* <Cards cards={cards}></Cards> */}
         </div>
     )
 }
