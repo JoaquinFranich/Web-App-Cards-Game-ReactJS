@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import Cards from "../../components/Card/Cards";
+import Card from "../../components/Card/Card";
 import { CardContext } from "../../Context/CardContext";
 import "./Home.css";
 //import { UserContext } from "../../context/UserContext";
@@ -26,7 +26,8 @@ const Home = () => {
     return(
         <div className="main-container">
             <h1>Home</h1>
-            <Cards cards={cards}></Cards>
+            <h2>Let's play a game with all this Characters!</h2>
+            <Card/>
         </div>
     )
 }

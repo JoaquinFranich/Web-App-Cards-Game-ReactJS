@@ -2,10 +2,9 @@
 //import { useContext, useState } from "react";
 //COMPONENTS
 /* import Cards from "../../components/Card/Cards"; */
-import Card from "../../components/Card/Card";
+import Cards from "../../components/Card/Cards";
 //CONTEXT
 //import { CardContext } from "../../Context/CardContext";
-//import {getApi} from "../../service";
 import "./Game.css";
 
 const Game = () => {
@@ -16,7 +15,7 @@ const Game = () => {
         <>
             <div className="game-container">
                 <h1>The Game</h1>
-                <Card/>
+                <Cards/>
             </div>
         </>
 
