@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from "react";
 
 export const CardContext = createContext({
   cards: [],
-  setCards: () => {},
+  setCards: () => {}
 });
 
 export const CardProvider = ({ children }) => {

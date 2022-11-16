@@ -1,5 +1,5 @@
 //DEPS
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 //COMPONENTS
 //CONTEXT
 import { CardContext } from "../../Context/CardContext";
@@ -8,15 +8,29 @@ import "./Cards.css";
 
 const Cards = () => {
     const { cards } = useContext(CardContext);
-    const pairOfCard = [...cards, ...cards];
+    const block = cards.slice(0,6);
+    const pairOfCard = [...block, ...block];
+    //const pairOfCard =cards.slice(0,6);
     //pairOfCard.slice(0, 6);
     console.log("Cards.jsx");
     console.log(pairOfCard);
 
-    /* for (let i = 0; i <= 5; i++) {
-        pairOfCard.slice(0, 6);
-        console.log(pairOfCard);
-    } */
+    const {shuffledCards, setShuffledCards} = useState([]);
+
+    useEffect(() => {
+        const shuffledCardsList = shuffleArray([...block, ...block]);
+        setShuffledCards(shuffledCardsList.map( (card, i) => ({index: i, card, flipped:false}) ));
+    }, []);
+
+    const shuffleArray = a => {
+        for (let i = a.length; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+            }
+
+            return a;
+        }
+
     return(
         <div className="container">
             {
