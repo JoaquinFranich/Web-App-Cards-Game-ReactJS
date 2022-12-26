@@ -15,12 +15,12 @@ const Cards = () => {
     console.log("Cards.jsx");
     console.log(pairOfCard);
 
-    const {shuffledCards, setShuffledCards} = useState([]);
+    /* const {shuffledCards, setShuffledCards} = useState([]);
 
     useEffect(() => {
         const shuffledCardsList = shuffleArray([...block, ...block]);
         setShuffledCards(shuffledCardsList.map( (card, i) => ({index: i, card, flipped:false}) ));
-    }, []);
+    }, [setShuffledCards, block]);
 
     const shuffleArray = a => {
         for (let i = a.length; i > 0; i--) {
@@ -29,7 +29,7 @@ const Cards = () => {
             }
 
             return a;
-        }
+        } */
 
     return(
         <div className="container">
