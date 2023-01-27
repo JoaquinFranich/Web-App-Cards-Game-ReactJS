@@ -3,6 +3,11 @@
     margin: 0 auto;
     display: grid;
     place-items: center;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 20px;
+}
+
+.col-3 {
+    grid-column: span 1;
+    grid-row: span 1;
 }

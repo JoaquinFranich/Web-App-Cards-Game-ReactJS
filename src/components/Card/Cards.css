@@ -1,11 +1,14 @@
 .container {
-    width: 30vw;
-    margin: 0 auto;
     display: grid;
+    width: 30vw;
+    height: 30vh;
+    margin: 0 auto;
+    padding: 0 auto;
     grid-template-columns: repeat(4, 0.5fr);
-    grid-gap: 20px;
+    grid-gap: 5px;
 }
 
-.card-img-top {
-    width: 90%;
+.col-3 {
+    grid-column: span 1;
+    grid-row: span 1;
 }
