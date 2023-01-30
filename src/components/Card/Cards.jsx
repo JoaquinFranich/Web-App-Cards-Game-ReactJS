@@ -17,13 +17,6 @@ const Cards = () => {
     const pairOfCard = [...block, ...block];
     const cardIndexes = Array.from(Array(pairOfCard.length).keys());
     const shuffledIndexes = shuffleArray(cardIndexes);
-    const [clickedCards, setClickedCards] = useState([]);
-    const [hidden, setHidden] = useState(true);
-
-    const handleClick = (index) => {
-        setClickedCards([...clickedCards, index]);
-        setHidden(false);
-    }
 
     console.log("Cards.jsx");
     console.log(pairOfCard);
@@ -36,12 +29,8 @@ const Cards = () => {
                 shuffledIndexes.map(index => {
                     const card = pairOfCard[index];
                     return (
-                        <div className="col-3" 
-                        key={card.id} 
-                        onClick={() => handleClick(index)}>
-                            <img src={card.image} 
-                            className="card-img-top"
-                            alt={card.name}/>
+                        <div className="col-3" key={card.id}>
+                            <img src={card.image} className="card-img-top" alt={card.name}/>
                     </div>
                     )
                 })
