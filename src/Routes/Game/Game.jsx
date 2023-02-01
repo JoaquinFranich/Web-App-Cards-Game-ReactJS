@@ -2,10 +2,10 @@
 //import { useContext, useState } from "react";
 //COMPONENTS
 /* import Cards from "../../components/Card/Cards"; */
-import { useContext } from "react";
+/* import { useContext } from "react"; */
 import Cards from "../../components/Card/Cards";
 //CONTEXT
-import { CardContext } from "../../Context/CardContext";
+/* import { CardContext } from "../../Context/CardContext"; */
 import "./Game.css";
 
 const Game = () => {
