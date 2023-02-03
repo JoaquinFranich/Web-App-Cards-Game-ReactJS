@@ -21,7 +21,27 @@ const Cards = () => {
 
     const [isFlipped, setIsFlipped] = useState([]);
 
-    const handleClick = (index) => {
+/*     const handleClick = (index) => {
+        setIsFlipped([
+            ...isFlipped.slice(0, index),
+            !isFlipped[index],
+            ...isFlipped.slice(index + 1)
+        ]);
+      }; */
+
+/*       const [flippedCards, setFlippedCards] = useState({});
+
+      const handleClick = (index) => {
+        setFlippedCards((prevState) => ({ ...prevState, [index]: true }));
+      }; */
+
+      const [clickedCards, setClickedCards] = useState([]);
+
+      const handleClick = (index) => {
+          if (!clickedCards.includes(index)) {
+              setIsFlipped([...isFlipped, index]);
+              setClickedCards([...clickedCards, index]);
+          }
       };
 
     console.log("Cards.jsx");
@@ -34,16 +54,16 @@ const Cards = () => {
                 shuffledIndexes.map(index => {
                     const card = pairOfCard[index];
                     return (
-                        <div className="col-3" key={card.id}>
-                            <CardFlip isFlipped={isFlipped}>
+                        <div className="col-3" key={card.id} index={index}>
+{/*                             <CardFlip isFlipped={clickedCards[index] || false}>
                             <div key="front">
-                                <img src={card.image} className="card-img-top" alt={card.name} onClick={() => handleClick(index)} />
+                                <img src={card.image} className="card-img-top" alt={card.name} onClick={alert(card.index)} />
                             </div>
                             <div key="back">
                                 <img src={card.image} className="card-img-top" alt={card.name} onClick={() => handleClick(index)} />
                             </div>
-                            </CardFlip>
-                            {/* <img src={card.image} className="card-img-top" alt={card.name}/> */}
+                            </CardFlip> */}
+                            <img src={card.image} className="card-img-top" alt={card.name} onClick={() => alert(card.status + " " + index)}/>
                     </div>
                     )
                 })
