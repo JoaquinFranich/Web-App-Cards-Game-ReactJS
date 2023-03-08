@@ -1,7 +1,8 @@
 //DEPS
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef, useMemo } from "react";
 import CardFlip from "react-card-flip";
 //COMPONENTS
+import image from '../../assets/portal.png';
 //CONTEXT
 import { CardContext } from "../../Context/CardContext";
 //import Card from "./Card";
@@ -10,60 +11,151 @@ import "./Cards.css";
 
 function shuffleArray(array) {
     return array.sort(() => Math.random() - 0.5);
-  }
+}
+
 
 const Cards = () => {
+  const { cards } = useContext(CardContext);
+  const block = cards.slice(0,6);
+  const pairOfCard = useMemo(() => {
+    return [...block, ...block];
+  }, [block])
+
+  const [shuffledIndexes, setShuffledIndexes] = useState([]);
+
+  useEffect(() => {
+    const cardIndexes = Array.from(Array(pairOfCard.length).keys());
+    setShuffledIndexes(shuffleArray(cardIndexes));
+  }, []);
+
+  const [isFlipped, setIsFlipped] = useState(Array(shuffledIndexes.length).fill(false));
+  const [openCards, setOpenCards] = useState([]);
+  const [clearedCards, setClearedCards] = useState({});
+  const [moves, setMoves] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const timeout = useRef(null);
+
+  const evaluate = () => {
+    const [first, second] = openCards;
+    if (pairOfCard[first].name === pairOfCard[second].name) {
+      setClearedCards((prev) => ({ ...prev, [pairOfCard[first].name]: true }));
+      setOpenCards([]);
+      return;
+    }
+    timeout.current = setTimeout(() => {
+      setOpenCards([]);
+    }, 500);
+  };
+  
+  const handleCardClick = (index) => {
+    if (openCards.length === 1) {
+      setOpenCards((prev) => [...prev, index]);
+      setMoves((moves) => moves + 1);
+    } else {
+      clearTimeout(timeout.current);
+      setOpenCards([index]);
+    }
+    setIsFlipped(prevState => {
+      const newIsFlipped = [...prevState];
+      newIsFlipped[index] = !newIsFlipped[index];
+      return newIsFlipped;
+    });
+  };
+
+  useEffect(() => {
+    if (openCards.length === 2) {
+      setTimeout(evaluate, 500);
+    }
+  }, [openCards]);
+
+  const checkIsFlipped = (index) => {
+    return isFlipped[index];
+  };
+
+  const checkIsInactive = (card) => {
+    return Boolean(clearedCards[card.name]);
+  };
+
+  return (
+    <div className="container">
+      {shuffledIndexes.map((index) => {
+        const card = pairOfCard[index];
+        const key = `${card.id}${index}`;
+
+        return (
+          <div className="col-3"
+          key={key}
+      onClick={() => {
+        if (!checkIsInactive(card) && !checkIsFlipped(index)) {
+          handleCardClick(index);
+        }
+      }}
+      /* key={key} */
+    >
+      <CardFlip isFlipped={checkIsFlipped(index)} disabled={checkIsInactive(card)} flipDirection="horizontal">
+        <div className="card-back">
+          <img className="card-image" src={card.image} alt="card-background" />
+        </div>
+        <div className="card-front" src={image} style={{ backgroundImage: `url(${card.image})` }}></div>
+      </CardFlip>
+    </div>
+  )
+    })}
+</div>
+);
+};
+
+export default Cards;
+
+{/* const Cards = () => {
     const { cards } = useContext(CardContext);
     const block = cards.slice(0,6);
     const pairOfCard = [...block, ...block];
-    const cardIndexes = Array.from(Array(pairOfCard.length).keys());
-    const shuffledIndexes = shuffleArray(cardIndexes);
 
-    const [isFlipped, setIsFlipped] = useState([]);
+    const [shuffledIndexes, setShuffledIndexes] = useState([]);
 
-/*     const handleClick = (index) => {
-        setIsFlipped([
-            ...isFlipped.slice(0, index),
-            !isFlipped[index],
-            ...isFlipped.slice(index + 1)
-        ]);
-      }; */
+    useEffect(() => {
+        const cardIndexes = Array.from(Array(pairOfCard.length).keys());
+        setShuffledIndexes(shuffleArray(cardIndexes));
+        console.log(pairOfCard);
+        console.log('CardIndexes: ' + cardIndexes);
+    }, []);
 
-/*       const [flippedCards, setFlippedCards] = useState({});
 
-      const handleClick = (index) => {
-        setFlippedCards((prevState) => ({ ...prevState, [index]: true }));
-      }; */
+    const [isFlipped, setIsFlipped] = useState(Array(shuffledIndexes.length).fill(false));
 
-      const [clickedCards, setClickedCards] = useState([]);
-
-      const handleClick = (index) => {
-          if (!clickedCards.includes(index)) {
-              setIsFlipped([...isFlipped, index]);
-              setClickedCards([...clickedCards, index]);
-          }
-      };
-
-    console.log("Cards.jsx");
-    console.log(pairOfCard);
-
+    const handleClick = (index) => {
+        setIsFlipped(prevState => {
+        const newIsFlipped = [...prevState];
+        newIsFlipped[index] = !newIsFlipped[index];
+        return newIsFlipped;
+    });
+};
 
     return(
         <div className="container">
             {
                 shuffledIndexes.map(index => {
                     const card = pairOfCard[index];
+                    const key = `${card.id}${index}`;
+
+                    console.log('key: ' + key);
+                    //console.log('CardIdexes: ' + cardIndexes);
+                    console.log(isFlipped);
+
                     return (
-                        <div className="col-3" key={card.id} index={index}>
-{/*                             <CardFlip isFlipped={clickedCards[index] || false}>
+                        <div className="col-3" key={key} index={index}>
+                            <CardFlip 
+                                isFlipped={!isFlipped[index]}
+                                flipDirection="horizontal"
+                                flipKey={card.id}>
                             <div key="front">
-                                <img src={card.image} className="card-img-top" alt={card.name} onClick={alert(card.index)} />
+                                <img src={card.image} className="card-img-top" alt={card.name} onClick={() => handleClick(card.id)} />
                             </div>
                             <div key="back">
-                                <img src={card.image} className="card-img-top" alt={card.name} onClick={() => handleClick(index)} />
+                                <img src={image} className="card-img-top" alt={card.name} onClick={() => handleClick(card.id)} />
                             </div>
-                            </CardFlip> */}
-                            <img src={card.image} className="card-img-top" alt={card.name} onClick={() => alert(card.status + " " + index)}/>
+                            </CardFlip>
                     </div>
                     )
                 })
@@ -72,4 +164,6 @@ const Cards = () => {
         </div>
     )
 }
-export default Cards;
+
+
+export default Cards; */}
