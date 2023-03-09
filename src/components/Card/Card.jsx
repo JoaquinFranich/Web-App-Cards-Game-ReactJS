@@ -3,7 +3,7 @@ import ReactCardFlip from "react-card-flip";
 import cardBack from "../../assets/portal.png";
 
 const Card = ({ card }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(true);
   const handleClick = () => setIsFlipped((isFlipped) => !isFlipped);
 
   return (
