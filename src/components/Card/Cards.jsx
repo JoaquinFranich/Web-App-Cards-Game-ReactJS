@@ -14,7 +14,7 @@ function shuffleArray(array) {
 }
 
 
-const Cards = () => {
+/* const Cards = () => {
   const { cards } = useContext(CardContext);
   const block = cards.slice(0,6);
   const pairOfCard = useMemo(() => {
@@ -90,7 +90,7 @@ const Cards = () => {
           handleCardClick(index);
         }
       }}
-      /* key={key} */
+      /* key={key} 
     >
       <CardFlip isFlipped={checkIsFlipped(index)} disabled={checkIsInactive(card)} flipDirection="horizontal">
         <div className="card-back">
@@ -105,9 +105,9 @@ const Cards = () => {
 );
 };
 
-export default Cards;
+export default Cards; */
 
-{/* const Cards = () => {
+const Cards = () => {
     const { cards } = useContext(CardContext);
     const block = cards.slice(0,6);
     const pairOfCard = [...block, ...block];
@@ -135,7 +135,7 @@ export default Cards;
     return(
         <div className="container">
             {
-                shuffledIndexes.map(index => {
+                shuffledIndexes.map((index, idx) => {
                     const card = pairOfCard[index];
                     const key = `${card.id}${index}`;
 
@@ -146,14 +146,14 @@ export default Cards;
                     return (
                         <div className="col-3" key={key} index={index}>
                             <CardFlip 
-                                isFlipped={!isFlipped[index]}
+                                isFlipped={!isFlipped[idx]}
                                 flipDirection="horizontal"
-                                flipKey={card.id}>
+                                flipKey={idx}>
                             <div key="front">
-                                <img src={card.image} className="card-img-top" alt={card.name} onClick={() => handleClick(card.id)} />
+                                <img src={card.image} className="card-img-top" alt={card.name} onClick={() => handleClick(idx)} />
                             </div>
                             <div key="back">
-                                <img src={image} className="card-img-top" alt={card.name} onClick={() => handleClick(card.id)} />
+                                <img src={image} className="card-img-top" alt={card.name} onClick={() => handleClick(idx)} />
                             </div>
                             </CardFlip>
                     </div>
@@ -166,4 +166,4 @@ export default Cards;
 }
 
 
-export default Cards; */}
+export default Cards;
