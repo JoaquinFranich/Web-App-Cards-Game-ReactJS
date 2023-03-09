@@ -7,7 +7,7 @@ const Card = ({ card }) => {
   const handleClick = () => setIsFlipped((isFlipped) => !isFlipped);
 
   return (
-    <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
+    <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
       <div id="front_text">
         <img
           src={card.image}
