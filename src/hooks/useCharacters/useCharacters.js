@@ -1,32 +1,31 @@
 import { useEffect, useState, useCallback } from "react";
 
-const MIN_PAGES = 1;
-const MAX_PAGES = 42;
+const MIN_PAGE = 1;
+const MAX_PAGE = 42;
+const API = `https://rickandmortyapi.com/api/character/?page=`;
 
 export function useCharacters() {
-  const [pages, setPages] = useState(1);
+  const [page, setPages] = useState(1);
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const fetchCharacters = useCallback(() => {
-    fetch(
-      `https://rickandmortyapi.com/api/character/?pages=` + pages.toString()
-    )
-      .then((response) => response.json())
-      .then((data) => setCards(data.results))
-      .then(() => setIsLoading(false))
-      .catch((error) => console.log(error));
-  }, [pages]);
 
   const next = useCallback(() => setPages((pages) => ++pages), []);
   const prev = useCallback(() => setPages((pages) => --pages), []);
 
   useEffect(() => {
-    if (pages < MIN_PAGES) setPages(1);
-    if (pages > MAX_PAGES) setPages(42);
+    setIsLoading(true);
 
-    fetchCharacters();
-  }, [fetchCharacters, pages]);
+    if (page < MIN_PAGE) setPages(1);
+    if (page > MAX_PAGE) setPages(42);
+
+    const URL = API + page.toString();
+
+    fetch(URL)
+      .then((response) => response.json())
+      .then((data) => setCards(data.results))
+      .then(() => setIsLoading(false))
+      .catch((error) => console.log(error));
+  }, [page]);
 
   return { cards, isLoading, next, prev };
 }
