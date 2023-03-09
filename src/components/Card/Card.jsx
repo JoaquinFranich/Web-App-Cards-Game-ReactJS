@@ -1,40 +1,32 @@
-//DEPS
-import { useContext } from "react";
-//COMPONENTS
-//CONTEXT
-import { CardContext } from "../../Context/CardContext";
-import "./Card.css";
+import { useState } from "react";
+import ReactCardFlip from "react-card-flip";
+import cardBack from "../../assets/portal.png";
 
+const Card = ({ card }) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const handleClick = () => setIsFlipped((isFlipped) => !isFlipped);
 
-const Card = () => {
-    const { cards } = useContext(CardContext);
-    console.log("Card.jsx");
-    console.log(cards);
+  return (
+    <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
+      <div id="front_text">
+        <img
+          src={card.image}
+          className="card-img-top"
+          alt={card.name}
+          onClick={handleClick}
+        />
+      </div>
 
-
-    return (
-        <div className="row">
-        {
-            cards.map(card => {
-                return(
-                    <div className="col-3" key={card.id}>
-                        <div className="card">
-                            <img src={card.image} className="card-img-top" alt="..."/>
-                            <div className="card-body">
-                            <h5 className="card-title">Name: {card.name}</h5>
-                            <p className="card-text"><b>Status: {card.status}</b> <br /><b>Species: {card.species}</b></p>
-                            </div>
-                        </div>
-                    </div>
-                )
-            })
-        }
-
-    </div> 
-    )
-
-
-
-}
+      <div id="back_text">
+        <img
+          src={cardBack}
+          className="card-img-top"
+          alt={card.name}
+          onClick={handleClick}
+        />
+      </div>
+    </ReactCardFlip>
+  );
+};
 
 export default Card;
