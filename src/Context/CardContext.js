@@ -1,8 +1,10 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 
 export const CardContext = createContext({
   cards: [],
-  setCards: () => {}
+  setCards: () => {},
+  loading: true,
+  setLoading: () => {},
 });
 
 export const CardProvider = ({ children }) => {
@@ -19,3 +21,5 @@ export const CardProvider = ({ children }) => {
   }, []);
   return <CardContext.Provider value={value}>{children}</CardContext.Provider>;
 };
+
+export const useCardsCtx = () => useContext(CardContext);
